@@ -46,6 +46,7 @@ class PageController extends Controller
         // Form validation
         $request->validate([
             'page_title' => 'required|unique:pages',
+            'page_slug' => 'require',
             'desc' => 'required',
             'breadcrumb_image' => 'mimes:svg,jpeg,jpg,png|max:2048',
             'status' => 'integer|in:0,1',
@@ -83,6 +84,7 @@ class PageController extends Controller
             [
                 'language_id' => getLanguage()->id,
                 'page_title' => $input['page_title'],
+                'page_slug' => $input['page-slug'],
                 'desc' => Purifier::clean($input['desc']),
                 'breadcrumb_image' => $input['breadcrumb_image'],
                 'status' => $input['status'],

@@ -13,6 +13,7 @@
                 <div class="col-xl-12 text-center">
                     <div class="page-title-content">
                         <h3 class="title text-white">{{ $page->page_title }}</h3>
+                        <h3 class="title text-white">{{ $page->page_slug }}</h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a  href="{{ url('/') }}">{{ __('frontend.home') }}</a></li>

@@ -403,6 +403,3 @@ Route::middleware(['XSS'])->group(function () {
 
 Route::any('{catchall}', [ErrorPageController::class, 'not_found'])->where('catchall', '.*');
 
-
-
-

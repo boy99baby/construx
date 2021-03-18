@@ -7,6 +7,8 @@
 -- Sunucu sürümü: 10.4.14-MariaDB
 -- PHP Sürümü: 7.4.10
 
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -782,7 +784,7 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
+(1, '2014_10_12_000000_create_ses_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
 (4, '2019_08_19_000000_create_failed_jobs_table', 1),
@@ -1240,7 +1242,7 @@ CREATE TABLE `testimonial_sections` (
 -- Tablo için tablo yapısı `users`
 --
 
-CREATE TABLE `users` (
+/*CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1254,13 +1256,39 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+*/
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `two_factor_secret` text COLLATE utf8mb4_unicode_ci,
+  `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `current_team_id` bigint(20) unsigned DEFAULT NULL,
+  `profile_photo_path` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 --
 -- Tablo döküm verisi `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$9jdGinaqX7ViLM2lWxmuouICkMz0edKkY.WGBcF6HWgWk4qdSWlna', NULL, NULL, NULL, NULL, NULL, '2021-02-05 08:30:10', '2021-02-05 08:30:10');
+--INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
+--(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$9jdGinaqX7ViLM2lWxmuouICkMz0edKkY.WGBcF6HWgWk4qdSWlna', NULL, NULL, NULL, NULL, NULL, '2021-02-05 08:30:10', '2021-02-05 08:30:10');
+
+BEGIN;
+INSERT INTO `users` VALUES (1, 'Admin', 'info@melink.vn', NULL, '$2y$10$9F3FHXJqhgGUuEgRvedZae87Mua7cleqnV5GoE1vIInOtYRX8d/Km', NULL, NULL, 'RoKz3NqDRYLEiXbnOX8W83BZfuO4fOlgOQaT6f5cVN5WoD4SWsHTYvyQnX1l', NULL, '1615847905-Icon-App-40x40@1x.png', '2021-02-05 15:30:10', '2021-03-16 02:03:46');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 --
 -- Dökümü yapılmış tablolar için indeksler
